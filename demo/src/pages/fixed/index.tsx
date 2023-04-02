@@ -1,4 +1,4 @@
-import SolidVirtualList from 'solid-virtual-list';
+import SolidVirtualList from '@kenh24/solid-virtual-list';
 
 const FixedSizePage = () => {
   const dataSource = new Array(1000).fill(0).map((_, index) => ({ id: index }));

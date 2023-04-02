@@ -1,5 +1,5 @@
 import { createSignal } from 'solid-js';
-import SolidVirtualList from 'solid-virtual-list';
+import SolidVirtualList from '@kenh24/solid-virtual-list'
 
 interface Data {
   id: string;

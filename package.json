@@ -1,6 +1,6 @@
 {
-  "name": "@ken/solid-virtual-list-repo",
-  "version": "1.0.0",
+  "name": "@kenh24/solid-virtual-list-repo",
+  "version": "0.0.1-alpha",
   "description": "",
   "main": "index.js",
   "workspaces": [

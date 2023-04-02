@@ -1,7 +1,12 @@
 # Solid Virtual List
 
-A simple virtual list built for Solid-js.
-Inspired by https://github.com/tangbc/vue-virtual-scroll-list
+- A simple virtual list built for Solid-js.
+- Inspired by https://github.com/tangbc/vue-virtual-scroll-list
+
+## install
+```
+npm i @kenh24/solid-virtual-list
+```
 
 ## Props
 

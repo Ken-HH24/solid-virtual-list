@@ -6,15 +6,15 @@ importers:
 
   demo:
     dependencies:
+      '@kenh24/solid-virtual-list':
+        specifier: workspace:*
+        version: link:../solid-virtual-list
       '@solidjs/router':
         specifier: ^0.8.2
         version: 0.8.2(solid-js@1.6.15)
       solid-js:
         specifier: ^1.6.10
         version: 1.6.15
-      solid-virtual-list:
-        specifier: workspace:*
-        version: link:../solid-virtual-list
     devDependencies:
       autoprefixer:
         specifier: ^10.4.14

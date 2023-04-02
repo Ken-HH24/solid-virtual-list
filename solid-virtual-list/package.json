@@ -1,7 +1,8 @@
 {
-  "name": "@ken/solid-virtual-list",
-  "version": "0.0.0",
-  "description": "",
+  "name": "@kenh24/solid-virtual-list",
+  "version": "0.0.1-alpha1",
+  "description": "a simple virtual list for solid js",
+  "author": "",
   "scripts": {
     "watch": "rollup -w -c rollup.config.js --bundleConfigAsCjs",
     "build": "rollup -c rollup.config.js --bundleConfigAsCjs"
@@ -10,7 +11,7 @@
   "module": "lib/index.es.js",
   "types": "lib/index.d.ts",
   "files": [
-    "lib"
+    "lib/"
   ],
   "exports": {
     ".": {
@@ -20,7 +21,8 @@
     }
   },
   "publishConfig": {
-    "types": "lib/index.d.ts"
+    "types": "lib/index.d.ts",
+    "access": "public"
   },
   "license": "MIT",
   "devDependencies": {
