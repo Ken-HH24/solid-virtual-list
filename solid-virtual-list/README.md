@@ -1,34 +1,95 @@
-## Usage
+# Solid Virtual List
 
-Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.
+A simple virtual list built for Solid-js.
+Inspired by https://github.com/tangbc/vue-virtual-scroll-list
 
-This is the reason you see a `pnpm-lock.yaml`. That being said, any package manager will work. This file can be safely be removed once you clone a template.
+## Props
 
-```bash
-$ npm install # or pnpm install or yarn install
+| prop         | type                   | description                                    | defaultValue |
+| ------------ | ---------------------- | ---------------------------------------------- | ------------ |
+| dataSource\* | Array                  | your data for rendering                        |
+| dataId\*     | ()=> string \| string  | unique id for every data item                  |
+| itemRender\* | () => JSX.Element      | the function to render item in virtual list    |
+| estimateSize | number                 | the estimateSize of every item in virtual list | 50           |
+| keeps        | number                 | the count for rendering in the virtual list    | 30           |
+| direction    | vertical \| horizental | the scroll direction of virtual list           | vertical     |
+
+
+## Fixed Size example
+
+- Pass data, render Function and estimateSize to the component.
+
+```tsx
+import SolidVirtualList from "solid-virtual-list";
+
+const FixedSizeComponent = () => {
+  const dataSource = new Array(1000).fill(0).map((_, index) => ({ id: index }));
+
+  return (
+    <div style={{ overflow: "auto", height: "600px", width: "100%" }}>
+      <SolidVirtualList
+        estimateSize={60}
+        dataSource={dataSource}
+        dataId={"id"}
+        itemRender={(index) => <div># {index}</div>}
+      />
+    </div>
+  );
+};
+
+export default FixedSizePage;
 ```
 
-### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
+## Dynamic Size example
 
-## Available Scripts
+- The virtual list use ResizeObserver to detect every item's size.
+- You don't need to pass extra attribute to the component when every item has different size.
 
-In the project directory, you can run:
+```tsx
+import { createSignal } from "solid-js";
+import SolidVirtualList from "solid-virtual-list";
 
-### `npm dev` or `npm start`
+interface Data {
+  id: string;
+  height: string;
+}
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+const generateDataSource = (count: number) => {
+  return new Array<Data>(count).fill({} as Data).map((_, index) => ({
+    id: `${index}-${Math.random()}`,
+    height: `${Math.floor(Math.random() * 60 + 60)}px`,
+  }));
+};
 
-The page will reload if you make edits.<br>
+const DynamicSizePage = () => {
+  const [dataSource] = createSignal<Data[]>(generateDataSource(1000000));
 
-### `npm run build`
+  return (
+    <div style={{ overflow: "auto", height: "600px", width: "100%" }}>
+      <SolidVirtualList<Data>
+        estimateSize={80}
+        dataSource={dataSource()}
+        dataId={"id"}
+        itemRender={(index, data) => {
+          const height = data.height;
 
-Builds the app for production to the `dist` folder.<br>
-It correctly bundles Solid in production mode and optimizes the build for the best performance.
+          return (
+            <div style={{ height }}>
+              <span># {index}</span>
+              <span>height = {height}</span>
+            </div>
+          );
+        }}
+      />
+    </div>
+  );
+};
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+export default DynamicSizePage;
+```
 
-## Deployment
-
-You can deploy the `dist` folder to any static host provider (netlify, surge, now, etc.)
+## Roadmap
+- [ ] header and footer slot
+- [ ] calculateSize prop
+- [ ] demo website
+- [ ] page mode

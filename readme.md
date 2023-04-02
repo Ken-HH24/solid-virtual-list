@@ -1,16 +1,18 @@
 # Solid Virtual List
 
-A virtual list built for Solid-js.
+A simple virtual list built for Solid-js.
+Inspired by https://github.com/tangbc/vue-virtual-scroll-list
 
 ## Props
-| props | function | value |
-|---|---|---|
-| dataSource | your data for rendering | required |
-| dataId | unique id for every data item | required |
-| itemRender | the function to render item in virtual list | required |
-| estimateSize | the estimateSize of every item in virtual list | 50 |
-| direction | the scroll direction of virtual list | vertical |
-| keeps | the count for rendering in the virtual list | 30 |
+
+| prop         | type                   | description                                    | defaultValue |
+| ------------ | ---------------------- | ---------------------------------------------- | ------------ |
+| dataSource\* | Array                  | your data for rendering                        |
+| dataId\*     | ()=> string \| string  | unique id for every data item                  |
+| itemRender\* | () => JSX.Element      | the function to render item in virtual list    |
+| estimateSize | number                 | the estimateSize of every item in virtual list | 50           |
+| keeps        | number                 | the count for rendering in the virtual list    | 30           |
+| direction    | vertical \| horizental | the scroll direction of virtual list           | vertical     |
 
 
 ## Fixed Size example
@@ -18,12 +20,21 @@ A virtual list built for Solid-js.
 - Pass data, render Function and estimateSize to the component.
 
 ```tsx
-import SolidVirtualList from 'solid-virtual-list';
+import SolidVirtualList from "solid-virtual-list";
 
 const FixedSizeComponent = () => {
   const dataSource = new Array(1000).fill(0).map((_, index) => ({ id: index }));
 
-  return <SolidVirtualList estimateSize={60} dataSource={dataSource} dataId={'id'} itemRender={(index) => <div># {index}</div>} />;
+  return (
+    <div style={{ overflow: "auto", height: "600px", width: "100%" }}>
+      <SolidVirtualList
+        estimateSize={60}
+        dataSource={dataSource}
+        dataId={"id"}
+        itemRender={(index) => <div># {index}</div>}
+      />
+    </div>
+  );
 };
 
 export default FixedSizePage;
@@ -31,11 +42,12 @@ export default FixedSizePage;
 
 ## Dynamic Size example
 
-- The virtual list use ResizeObserver to detect every item's size, so you don't need to pass extra attribute to the component when every item has different size.
+- The virtual list use ResizeObserver to detect every item's size.
+- You don't need to pass extra attribute to the component when every item has different size.
 
 ```tsx
-import { createSignal } from 'solid-js';
-import SolidVirtualList from 'solid-virtual-list';
+import { createSignal } from "solid-js";
+import SolidVirtualList from "solid-virtual-list";
 
 interface Data {
   id: string;
@@ -53,23 +65,38 @@ const DynamicSizePage = () => {
   const [dataSource] = createSignal<Data[]>(generateDataSource(1000000));
 
   return (
-    <SolidVirtualList<Data>
-      estimateSize={80}
-      dataSource={dataSource()}
-      dataId={'id'}
-      itemRender={(index, data) => {
-        const height = data.height;
+    <div style={{ overflow: "auto", height: "600px", width: "100%" }}>
+      <SolidVirtualList<Data>
+        estimateSize={80}
+        dataSource={dataSource()}
+        dataId={"id"}
+        itemRender={(index, data) => {
+          const height = data.height;
 
-        return (
-          <div style={{ height }}>
-            <span># {index}</span>
-            <span>height = {height}</span>
-          </div>
-        );
-      }}
-    />
+          return (
+            <div style={{ height }}>
+              <span># {index}</span>
+              <span>height = {height}</span>
+            </div>
+          );
+        }}
+      />
+    </div>
   );
 };
 
 export default DynamicSizePage;
 ```
+
+## How to run the project
+```shell
+pnpm install
+pnpm run watch
+pnpm run demo
+```
+
+## Roadmap
+- [ ] header and footer slot
+- [ ] calculateSize prop
+- [ ] demo website
+- [ ] page mode
