@@ -1,0 +1,18 @@
+{
+  "name": "@ken/solid-virtual-list-repo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "workspaces": [
+    "solid-virtual-list",
+    "demo"
+  ],
+  "scripts": {
+    "demo": "pnpm --filter ./demo dev",
+    "watch": "pnpm --filter ./solid-virtual-list watch",
+    "build": "pnpm --filter ./solid-virtual-list build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
