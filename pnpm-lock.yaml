@@ -7,7 +7,7 @@ importers:
   demo:
     dependencies:
       '@kenh24/solid-virtual-list':
-        specifier: workspace:*
+        specifier: 0.0.1-alpha1
         version: link:../solid-virtual-list
       '@solidjs/router':
         specifier: ^0.8.2

@@ -21,6 +21,6 @@
   "dependencies": {
     "@solidjs/router": "^0.8.2",
     "solid-js": "^1.6.10",
-    "solid-virtual-list": "workspace:*"
+    "@kenh24/solid-virtual-list": "0.0.1-alpha2"
   }
 }

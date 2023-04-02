@@ -1,8 +1,9 @@
 {
   "name": "@kenh24/solid-virtual-list",
-  "version": "0.0.1-alpha1",
+  "version": "0.0.1-alpha2",
   "description": "a simple virtual list for solid js",
-  "author": "",
+  "homepage": "https://github.com/Ken-HH24/solid-virtual-list",
+  "author": "kenh24",
   "scripts": {
     "watch": "rollup -w -c rollup.config.js --bundleConfigAsCjs",
     "build": "rollup -c rollup.config.js --bundleConfigAsCjs"
@@ -10,6 +11,7 @@
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
   "types": "lib/index.d.ts",
+  "browser": "lib/index.umd.js",
   "files": [
     "lib/"
   ],
@@ -18,7 +20,8 @@
       "import": "./lib/index.es.js",
       "require": "./lib/index.cjs.js",
       "default": "./lib/index.umd.js"
-    }
+    },
+    "./lib/*": "./lib/*"
   },
   "publishConfig": {
     "types": "lib/index.d.ts",
