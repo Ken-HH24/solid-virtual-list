@@ -4,6 +4,7 @@
 - Inspired by https://github.com/tangbc/vue-virtual-scroll-list
 
 ## install
+
 ```
 npm i @kenh24/solid-virtual-list
 ```
@@ -18,7 +19,16 @@ npm i @kenh24/solid-virtual-list
 | estimateSize | number                 | the estimateSize of every item in virtual list | 50           |
 | keeps        | number                 | the count for rendering in the virtual list    | 30           |
 | direction    | vertical \| horizental | the scroll direction of virtual list           | vertical     |
+| header       | SlotConfig             | to render a header slot                        | undefined    |
+| footer       | SlotConfig             | to render a footer slot                        | undefined    |
 
+### SlotConfig
+
+| prop      | type              | description                     | defaultValue |
+| --------- | ----------------- | ------------------------------- | ------------ |
+| render\*  | () => JSX.Element | the function to render slot     |              |
+| className | string            | className of the slot container | undefined    |
+| style     | JSX.CSSProperties | style of the slot container     | undefined    |
 
 ## Fixed Size example
 
@@ -93,7 +103,37 @@ const DynamicSizePage = () => {
 export default DynamicSizePage;
 ```
 
+## Slot example
+
+- You can use header and footer slot in the virtual list.
+
+```tsx
+import SolidVirtualList from "@kenh24/solid-virtual-list";
+
+const SlotPage = () => {
+  const dataSource = new Array(1000).fill(0).map((_, index) => ({ id: index }));
+
+  return (
+    <SolidVirtualList
+      header={{
+        render: () => <div>Header</div>,
+      }}
+      footer={{
+        render: () => <div>Footer</div>,
+      }}
+      estimateSize={80}
+      dataSource={dataSource}
+      dataId={"id"}
+      itemRender={(index) => <div># {index}</div>}
+    />
+  );
+};
+
+export default SlotPage;
+```
+
 ## How to run the project
+
 ```shell
 pnpm install
 pnpm run watch
@@ -101,6 +141,7 @@ pnpm run demo
 ```
 
 ## Roadmap
+
 - [x] header and footer slot
 - [ ] demo website
 - [ ] page mode
