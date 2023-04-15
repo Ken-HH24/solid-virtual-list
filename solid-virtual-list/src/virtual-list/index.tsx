@@ -1,8 +1,9 @@
 import { batch, createEffect, createMemo, createSignal, For, JSX, mergeProps, onMount } from 'solid-js';
-import VirtualListItem from './Item';
+import { VirtualListItem, VirtualListSlot } from './components';
 import { Virtual } from './virtual';
-import type { Direction } from './types';
-import styles from './style.module.css';
+import type { Direction, SlotConfig } from './types';
+import styles from './styles/style.module.css';
+import { DEFAULT_PROPS, SLOT_ID } from './consts';
 
 export interface SolidVirtualListProps<T = unknown> {
   dataSource: T[];
@@ -12,13 +13,10 @@ export interface SolidVirtualListProps<T = unknown> {
   estimateSize?: number;
   direction?: Direction;
   keeps?: number;
-}
 
-const DEFAULT_PROPS: Required<Omit<SolidVirtualListProps, 'dataSource' | 'dataId' | 'itemRender'>> = {
-  direction: 'vertical',
-  estimateSize: 50,
-  keeps: 30,
-};
+  header?: SlotConfig;
+  footer?: SlotConfig;
+}
 
 const SolidVirtualList = <T,>(props: SolidVirtualListProps<T>) => {
   const mergedProps = mergeProps(DEFAULT_PROPS, props);
@@ -84,6 +82,15 @@ const SolidVirtualList = <T,>(props: SolidVirtualListProps<T>) => {
           padding: isHorizontal() ? `0px ${paddingBehind()}px 0px ${paddingFront()}px` : `${paddingFront()}px 0px ${paddingBehind()}px 0px`,
         }}
       >
+        {mergedProps.header && (
+          <VirtualListSlot
+            type="header"
+            config={mergedProps.header}
+            isHorizontal={isHorizontal()}
+            onSlotSizeChange={virtual.updateSlotSize.bind(virtual)}
+          />
+        )}
+
         <For each={rendered()} fallback={null}>
           {(_, index) => {
             const renderedIndex = index() + start();
@@ -98,6 +105,15 @@ const SolidVirtualList = <T,>(props: SolidVirtualListProps<T>) => {
             );
           }}
         </For>
+
+        {mergedProps.footer && (
+          <VirtualListSlot
+            type="footer"
+            config={mergedProps.footer}
+            isHorizontal={isHorizontal()}
+            onSlotSizeChange={virtual.updateSlotSize.bind(virtual)}
+          />
+        )}
       </div>
     </div>
   );

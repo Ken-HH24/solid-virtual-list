@@ -1,3 +1,13 @@
+import { JSX } from 'solid-js/jsx-runtime';
+
+export type SlotType = 'header' | 'footer';
+
+export type SlotConfig = {
+  render: () => JSX.Element;
+  style?: JSX.CSSProperties;
+  className?: string;
+};
+
 export type VirtualParams = {
   offset: number;
   keeps: number;

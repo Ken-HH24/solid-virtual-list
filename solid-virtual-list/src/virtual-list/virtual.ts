@@ -1,4 +1,4 @@
-import { CALC_TYPE, VirtualParams, VirtualRange, virtualRangeCallback } from './types';
+import { CALC_TYPE, SlotType, VirtualParams, VirtualRange, virtualRangeCallback } from './types';
 import { SCROLL_DIRECTION } from './types';
 
 export class Virtual {
@@ -9,6 +9,9 @@ export class Virtual {
     estimateSize: 50,
     uniqueIds: [],
   };
+
+  slotHeaderSize = 0;
+  slotFooterSize = 0;
 
   sizesMap = new Map<string, number>();
   fixedSizeValue = Infinity;
@@ -33,6 +36,9 @@ export class Virtual {
   }
 
   private initState() {
+    this.slotHeaderSize = 0;
+    this.slotFooterSize = 0;
+
     this.sizesMap = new Map();
     this.calcType = CALC_TYPE.INIT;
     this.direction = SCROLL_DIRECTION.BEHIND;
@@ -152,6 +158,10 @@ export class Virtual {
     }
   }
 
+  updateSlotSize(type: SlotType, size: number) {
+    type === 'header' ? (this.slotHeaderSize = size) : (this.slotFooterSize = size);
+  }
+
   updateUniqueIds(ids: string[]) {
     this.params.uniqueIds = ids;
     for (const id of this.sizesMap.keys()) {
@@ -172,14 +182,14 @@ export class Virtual {
   }
 
   private getScrollOvers() {
-    const { offset, estimateSize } = this.params;
+    const offset = this.params.offset - this.slotHeaderSize;
 
     if (offset <= 0) {
       return 0;
     }
 
     if (this.isFixedSize()) {
-      return Math.floor(offset / estimateSize);
+      return Math.floor(offset / this.params.estimateSize);
     }
 
     let low = 0;
