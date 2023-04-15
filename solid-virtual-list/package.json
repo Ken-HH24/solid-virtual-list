@@ -1,6 +1,6 @@
 {
   "name": "@kenh24/solid-virtual-list",
-  "version": "0.0.1-alpha2",
+  "version": "0.0.1-alpha3",
   "description": "a simple virtual list for solid js",
   "homepage": "https://github.com/Ken-HH24/solid-virtual-list",
   "author": "kenh24",

@@ -3,7 +3,7 @@ import { VirtualListItem, VirtualListSlot } from './components';
 import { Virtual } from './virtual';
 import type { Direction, SlotConfig } from './types';
 import styles from './styles/style.module.css';
-import { DEFAULT_PROPS, SLOT_ID } from './consts';
+import { DEFAULT_PROPS } from './consts';
 
 export interface SolidVirtualListProps<T = unknown> {
   dataSource: T[];
