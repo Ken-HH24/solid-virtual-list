@@ -101,7 +101,6 @@ pnpm run demo
 ```
 
 ## Roadmap
-- [ ] header and footer slot
-- [ ] calculateSize prop
+- [x] header and footer slot
 - [ ] demo website
 - [ ] page mode
