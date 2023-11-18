@@ -33,7 +33,6 @@ const SolidVirtualList = <T,>(props: SolidVirtualListProps<T>) => {
   const dataSourceIds = createMemo(() => {
     const dataId = mergedProps.dataId;
     const dataSource = mergedProps.dataSource;
-
     return dataSource.map((data) => (typeof dataId === 'function' ? dataId(data) : (data as any)?.[dataId]));
   });
 
